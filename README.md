@@ -5,7 +5,7 @@ A library for putting customised "text on" 3D shapes in OpenSCAD with changeable
 
 Only works with OpenSCAD v 2014.xx and later -- where text() module is added and unicode text is supported
 
-This is a rewrite of version 3 of write.scad to use the new OpenSCAD internal text() primitive.
+This is a rewrite of write.scad (v3 from http://www.thingiverse.com/thing:16193) to use the new OpenSCAD internal text() primitive.
 * All credit to Harlan Martin (harlan@sutlog.com) for his great effort on the original.
 * Great thanks to @t-paul (and the OpenSCAD dev team) on adding the new text() primitive giving us other fonts.
 
