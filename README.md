@@ -75,6 +75,12 @@ text_on_font.scad.png
 
 ![alt text](examples/text_on_font.scad.png "text_on_font.scad image")
 
+![alt text](examples/text_on_surface.scad.png "text_on_surface.scad image")
+
+text_on_circle.scad.png
+
+![alt text](examples/text_on_circle.scad.png "text_on_circle.scad image")
+
 text_on_cylinder.scad.png
 
 ![alt text](examples/text_on_cylinder.scad.png "text_on_cylinder.scad image")
@@ -82,14 +88,6 @@ text_on_cylinder.scad.png
 text_on_sphere.scad.png
 
 ![alt text](examples/text_on_sphere.scad.png "text_on_sphere.scad image")
-
-text_on_surface.scad.png
-
-![alt text](examples/text_on_surface.scad.png "text_on_surface.scad image")
-
-text_on_circle.scad.png
-
-![alt text](examples/text_on_circle.scad.png "text_on_circle.scad image")
 
 text_extrude.scad
 
