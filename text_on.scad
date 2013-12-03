@@ -31,7 +31,6 @@ TODO: object_center=true/false (already done for cylinder)
 
 The above arguemnts can be seen in text_extrude() as all modules call that module evetually (often multiple times).
 
-Every module that is 'on' another shape (text_on_xxx) has the following arguments:
 locn_vector -- Where the faux-object has been translated to. TODO: Rename object to translate_vector?
 
 Additional arguments for text_on_cube():

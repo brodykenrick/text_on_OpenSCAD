@@ -1,6 +1,6 @@
 use <text_on/text_on.scad>
 
-cube_locn=[10,20,30];
+cube_locn=[10,20,20];
 
 translate(cube_locn)
 %cube(30,center=true);	
@@ -28,12 +28,15 @@ text_on_cube("Salut!",locn_vec=cube_locn,cube_size=[30,30,30],face="bottom");
 
 text_on_cube("🂡🂱🃁🃑",locn_vec=cube_locn,cube_size=[30,30,30],face="bottom",updown=-8,font="DejaVuSansCondensed");
 
-
 non_cubic_dimensions=[55,45,10];
+translate([0,0,-10])
+rotate([40,15,0])
+{
 %cube(non_cubic_dimensions,center=true);
 text_on_cube("bottom",cube_size=non_cubic_dimensions,face="bottom");
 text_on_cube("top",cube_size=non_cubic_dimensions,face="top");
 text_on_cube("right",cube_size=non_cubic_dimensions,face="right");
 text_on_cube("left",cube_size=non_cubic_dimensions,face="left");
+}
 
 

@@ -4,7 +4,7 @@ use <text_on/text_on.scad>
 //A cylinder with unequal top and bottom radii (a truncated cone)
 rad1=10;
 rad2=30;
-translate([0,75,0])
+translate([0,100,-25])
 {
 %cylinder(r1=rad1, r2=rad2,h=40);
 
@@ -18,8 +18,8 @@ text_on_cylinder("face = bottom",[0,0,0],r1=rad1,r2=rad2,h=40,face="bottom");
 
 }
 
-//The reverse slanty cylinder
-translate([0,150,0])
+//The reverse slanty cylinder of the above
+translate([-75,100,-25])
 {
 %cylinder(r1=rad2, r2=rad1,h=40);
 text_on_cylinder("eastwest=-120",[0,0,0],r1=rad2,r2=rad1,h=40, eastwest=-120);
@@ -34,7 +34,7 @@ text_on_cylinder("rotate = 30, east = 90",[0,0,0],r1=rad2,r2=rad1,h=40,spacing=1
 
 
 //A normal cylinder
-translate([0,0,0])
+translate([0,0,-20])
 {
 %cylinder(r=20,h=40, center=false);
 
@@ -68,7 +68,7 @@ text_on_cylinder(t="😁😇😈😎",locn_vec=[0,0,0],r=20,h=40,rotate=90,eastw
 
 
 //A centered cylinder
-translate([0,-75,0])
+translate([-75,-75,0])
 {
 %cylinder(r=20,h=40, center=true);
 

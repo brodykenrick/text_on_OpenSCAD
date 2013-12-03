@@ -29,11 +29,43 @@ There are examples in the /examples directory to get you started. See below for 
 * Copy (or link) the "text_on" directory into your OpenSCAD library directory (In OpenSCAD File/Library Folder will show you where it is).
 * Add "use <text_on/text_on.scad>" to your .scad file.
 
-##Examples
+##Module Arguments
 
-text_extrude.scad
+See the top comments section in of text_on.scad for the moduledefinition
 
-![alt text](examples/text_extrude.scad.png "text_extrude.scad image")
+The modules use the arguments with the same name as their underlying shapes in order to define the dimensions of the object to put "test_on (e.g. sphere() uses r, so does text_on_sphere() ).
+
+They also expose the arguments of the text() primitive:
+* t
+* size
+* spacing
+* font
+* direction -- ltr, ttb, btt or rtl
+* language
+* script
+* halign -- left, right or center
+* valign -- baseline, bottom, top or center
+
+And additional arguments:
+* extrusion_height //i.e. how far it sits proud
+* rotate
+* center //center the text at the location it is being written (NOT that the object is centered)
+* locn_vector //Where the faux-object has been translated to.
+
+###Quick Example - Text On Sphere
+
+%sphere(r=15); //Partially visible "base" object
+text_on_sphere("Hello World",r=15);
+
+###Quick Example - Text On Cylinder
+
+%cylinder(r1=rad1,r2=rad2,h=40); //Partially visible "base" object
+text_on_cylinder(t="Text",r1=rad1,r2=rad2,h=40, font="Liberation Mono", direction="ttb", size=5);
+
+
+##Example Images
+
+The examples in /examples produce the following:
 
 text_on_cube.scad
 
@@ -43,6 +75,14 @@ text_on_font.scad.png
 
 ![alt text](examples/text_on_font.scad.png "text_on_font.scad image")
 
+text_on_cylinder.scad.png
+
+![alt text](examples/text_on_cylinder.scad.png "text_on_cylinder.scad image")
+
+text_on_sphere.scad.png
+
+![alt text](examples/text_on_sphere.scad.png "text_on_sphere.scad image")
+
 text_on_surface.scad.png
 
 ![alt text](examples/text_on_surface.scad.png "text_on_surface.scad image")
@@ -51,13 +91,10 @@ text_on_circle.scad.png
 
 ![alt text](examples/text_on_circle.scad.png "text_on_circle.scad image")
 
-text_on_cylinder.scad.png
+text_extrude.scad
 
-![alt text](examples/text_on_cylinder.scad.png "text_on_cylinder.scad image")
+![alt text](examples/text_extrude.scad.png "text_extrude.scad image")
 
-text_on_sphere.scad.png
-
-![alt text](examples/text_on_sphere.scad.png "text_on_sphere.scad image")
 
 ##Development
 

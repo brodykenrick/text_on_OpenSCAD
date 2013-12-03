@@ -1,5 +1,7 @@
 use <text_on/text_on.scad>
 
+rotate([45,0,0])
+{
 
 translate([0,30,0])
 text_extrude("abcdefghijklmn",extrusion_height=10,size=10,center=true);translate([0,0,0])
@@ -35,3 +37,6 @@ text_extrude(t="Center= true",extrusion_height=5,size=5,center=true);
 
 translate([-100,-20,0])
 text_extrude(t="Center=false",extrusion_height=5,size=5,center=false);
+
+}
+
