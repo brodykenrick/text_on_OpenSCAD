@@ -21,17 +21,17 @@ There are examples in the /examples directory to get you started. See below for 
 
 ##Installation and Usage
 
-###Option1 (Quick)
+###Option 1 (Quick)
 * Copy text_on.scad into the same directory as your .scad file.
 * Add "use <text_on.scad>" to your .scad file.
 
-###Option2 (Nicer)
+###Option 2 (Nicer)
 * Copy (or link) the "text_on" directory into your OpenSCAD library directory (In OpenSCAD File/Library Folder will show you where it is).
 * Add "use <text_on/text_on.scad>" to your .scad file.
 
 ##Module Arguments
 
-See the top comments section in of text_on.scad for the moduledefinition
+See the top comments section in of text_on.scad for the module definition
 
 The modules use the arguments with the same name as their underlying shapes in order to define the dimensions of the object to put "test_on (e.g. sphere() uses r, so does text_on_sphere() ).
 

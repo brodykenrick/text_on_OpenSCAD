@@ -4,18 +4,18 @@ rotate([45,0,0])
 {
 
 translate([0,30,0])
-text_extrude("abcdefghijklmn",extrusion_height=10,size=10,center=true);translate([0,0,0])
+text_extrude("abcdefghijklmn",extrusion_height=5,size=8,center=true);translate([0,0,0])
 translate([0,15,0])
-text_extrude("opqrstuvwxyz",extrusion_height=9,size=9,center=true);
+text_extrude("opqrstuvwxyz",extrusion_height=8,size=7,center=true);
 translate([0,0,0])
-text_extrude("~!@#$%^&*()_-+=",extrusion_height=7.5,size=8,center=true);
+text_extrude("~!@#$%^&*()_-+=",extrusion_height=7.5,size=7,center=true);
 translate([0,-15,0])
-text_extrude(",./<>?;'`:[]{}|",extrusion_height=6,size=7,center=true);
+text_extrude(",./<>?;'`:[]{}|",extrusion_height=6,size=6,center=true);
 translate([0,-30,0])
-text_extrude("ABCDEFGHIJKLMN",extrusion_height=4.5,size=6,center=true);
+text_extrude("ABCDEFGHIJKLMN",extrusion_height=4.5,size=5,center=true);
 translate([0,0,0])
 translate([0,-45,0])
-text_extrude("OPQRSTUVWXYZ",extrusion_height=3,size=5,center=true);
+text_extrude("OPQRSTUVWXYZ",extrusion_height=3,size=4,center=true);
 translate([0,-60,0])
 text_extrude("\"",extrusion_height=1.5,size=4,center=true);
 
