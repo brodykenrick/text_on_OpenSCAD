@@ -31,10 +31,6 @@ There are examples in the /examples directory to get you started. See below for 
 
 ##Examples
 
-text_extrude.scad
-
-![alt text](examples/text_extrude.scad.png "text_extrude.scad image")
-
 text_on_cube.scad
 
 ![alt text](examples/text_on_cube.scad.png "text_on_cube.scad image")
@@ -42,6 +38,14 @@ text_on_cube.scad
 text_on_font.scad.png
 
 ![alt text](examples/text_on_font.scad.png "text_on_font.scad image")
+
+text_on_cylinder.scad.png
+
+![alt text](examples/text_on_cylinder.scad.png "text_on_cylinder.scad image")
+
+text_on_sphere.scad.png
+
+![alt text](examples/text_on_sphere.scad.png "text_on_sphere.scad image")
 
 text_on_surface.scad.png
 
@@ -51,13 +55,10 @@ text_on_circle.scad.png
 
 ![alt text](examples/text_on_circle.scad.png "text_on_circle.scad image")
 
-text_on_cylinder.scad.png
+text_extrude.scad
 
-![alt text](examples/text_on_cylinder.scad.png "text_on_cylinder.scad image")
+![alt text](examples/text_extrude.scad.png "text_extrude.scad image")
 
-text_on_sphere.scad.png
-
-![alt text](examples/text_on_sphere.scad.png "text_on_sphere.scad image")
 
 ##Development
 
