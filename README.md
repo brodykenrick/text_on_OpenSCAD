@@ -54,13 +54,13 @@ And additional arguments:
 
 ###Quick Example - Text On Sphere
 
-%sphere(r=15); //Partially visible "base" object
-text_on_sphere("Hello World",r=15);
+    %sphere(r=15); //Partially visible "base" object
+    text_on_sphere("Hello World",r=15);
 
 ###Quick Example - Text On Cylinder
 
-%cylinder(r1=rad1,r2=rad2,h=40); //Partially visible "base" object
-text_on_cylinder(t="Text",r1=rad1,r2=rad2,h=40, font="Liberation Mono", direction="ttb", size=5);
+    %cylinder(r1=rad1,r2=rad2,h=40); //Partially visible "base" object
+    text_on_cylinder(t="Text",r1=rad1,r2=rad2,h=40, font="Liberation Mono", direction="ttb", size=5);
 
 
 ##Example Images
