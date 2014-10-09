@@ -654,7 +654,7 @@ module text_extrude( t=default_t,
     rotate(rotate,[0,0,-1]) //TODO: Do we want to make this so that the entire vector can be set?
 	{
 	    linear_extrude(height=extrusion_height,convexity=10,center=extrusion_center)
-        text(t=t, size = size,
+        text(text=t, size = size,
             $fn = 40,
             font = font, direction = direction, spacing = spacing,
             halign = halign,
