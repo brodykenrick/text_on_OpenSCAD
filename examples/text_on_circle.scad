@@ -18,4 +18,3 @@ text_on_circle(t="Test BTT",r=r,direction="btt",rotate=45);
 text_on_circle(t="Test RTL",r=r,direction="rtl", middle=r/3);
 }
 }
-
