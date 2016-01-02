@@ -235,7 +235,7 @@ module text_on_circle(t=default_t,
 		//TTB/BTT means no per letter rotation
 		rotate_z_inner2 = -ccw_sign * 90 + ttb_btt_inaction*rtl_sign*ccw_sign*l*rotation_for_character(size, spacing, r-middle, rotate=0);   //Bottom out=-270+r
 		//TTB means we go toward center, BTT means away
-		vert_x_offset = (direction=="ttb" || direction=="btt") ?  size * ((direction=="btt") ? -1 : 1) :  0;
+		vert_x_offset = (direction=="ttb" || direction=="btt") ?  (l * size * ((direction=="btt") ? -1 : 1)) :  0;
 		rotate( rotate_z_inner2, [0,0,1] )
 		translate([r - middle - vert_x_offset,0,0])
 		rotate(-ccw_sign*270,[0,0,1])  // flip text (botom out = -270)
@@ -334,12 +334,12 @@ module __internal_text_on_cylinder_side(t=default_t,
             radius_here = calc_radius_at_length(rr1,rr2,h, length_to_center_of_char, rotate, updown);
             //Rotating into position and tangentially to surface -- Don't rotate per character for ttb/btt
             //-90 is to get centering at origin
-		    rotate_z_inner  = -90 + rtl_sign * rotation_for_character(size, spacing, ( radius_here ), rotate) * (ddirection=="ttb" || ddirection=="btt") ?  0 : l;
+		    rotate_z_inner  = -90 + rtl_sign * rotation_for_character(size, spacing, ( radius_here ), rotate) * ((ddirection=="ttb" || ddirection=="btt") ?  0 : l);
 	        rotate(rotate_z_inner,[0,0,1])
 			{
 	        //Positioning - based on (somewhat innacurate) string length
 		    //Offset per character to go up/down the side in ttb/btt -- TTB down, BTT up
-		    vert_z_char_offset = (ddirection=="ttb" || ddirection=="btt") ?  size * ((ddirection=="ttb") ? -1 : 1 ) :  0 ;
+		    vert_z_char_offset = (ddirection=="ttb" || ddirection=="btt") ?  (l * size * ((ddirection=="ttb") ? -1 : 1 )) :  0 ;
 		    //Only if RTL/LTR and if center -- center the text (starts off in a more visually appealing location)
 		    vert_z_half_text_offset_tmp = (len(t)-1)/2 * (rotate/90*wid);
 		    vert_z_half_text_offset =  ((ddirection=="ttb" || ddirection=="btt") || (ccenter==false)) ? 0 : vert_z_half_text_offset_tmp;
