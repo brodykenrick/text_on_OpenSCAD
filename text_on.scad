@@ -59,10 +59,10 @@ default_scale = [1,1,1];
 default_extrusion_height = 2; //mm letter extrusion height
 
 //Defaults for Cube
-default_cube_face        = "front";	 // default face (top,bottom,left,right,back,front)
-default_sphere_rounded   = false;	 //default for rounded letters on text_on_sphere
+default_cube_face        = "front";     // default face (top,bottom,left,right,back,front)
+default_sphere_rounded   = false;     //default for rounded letters on text_on_sphere
 default_cube_updown = 0; //mm up (-down) from center on face of cube
-default_cube_rightleft = 0;		 //mm right(-left) from center on face of cube
+default_cube_rightleft = 0;         //mm right(-left) from center on face of cube
 
 //Defaults for Sphere
 default_sphere_northsouth= 0;
@@ -103,14 +103,14 @@ function rotation_for_character(size, spacing, r, rotate = 0)
  = ( width_of_text_char( size, spacing ) /(internal_pi2*r))*360*(1-abs(rotate)/90);
 
 
-//Rotate 1/2 width of text if centering	
+//Rotate 1/2 width of text if centering    
 //One less -- if we have a single char we are already centred..
 function rotation_for_center_text_string( t, size, spacing,r,rotate,center)
-	= (center) ? (width_of_text_string_num_length( len(t)-1, size, spacing )/2/(internal_pi2*r)*360) : 0 ;
+    = (center) ? (width_of_text_string_num_length( len(t)-1, size, spacing )/2/(internal_pi2*r)*360) : 0 ;
 
 //Rotate according to rotate and if centred text also 1/2 width of text
 function rotation_for_center_text_string_and_rotate( t, size, spacing,r,rotate,center)
-	= ((center) ? (width_of_text_string( t, size, spacing )/2/(internal_pi2*r)*360) : 1) * (1-abs(rotate)/90);
+    = ((center) ? (width_of_text_string( t, size, spacing )/2/(internal_pi2*r)*360) : 1) * (1-abs(rotate)/90);
 
 
 //---- Text on Object Functions ----
@@ -155,39 +155,39 @@ module text_on_cylinder(t=default_t,
         echo (str("text_on_cylinder:","WARNING " , "halign and valign are NOT supported."));
     }
 
-	rtl_sign = (direction=="rtl") ? -1 : 1;
-	if ((face=="top")||(face=="bottom") ){
-		//Work on a circle
-		locn_offset_vec = (face=="top" ) ? [0,0,cylinder_center_adjusted_top(h,cylinder_center)] : [0,0,cylinder_center_adjusted_bottom(h,cylinder_center)] ;
-		rotation_angle = (face=="top" ) ? 0 : 180 ;
-		int_radius =  (r==undef) ? ((face=="top" ) ? r2 : r1 ) : r;  //Use the top/bottom radius for slanty-cylinders
-			rotate(rotation_angle,[1,0,0])
-			text_on_circle(t,locn_vec+locn_offset_vec,r=int_radius-size,
-				font=font,size=size,
-				spacing=spacing,direction=direction,language=language,script=script,halign=halign,valign=valign,
-				extrusion_height=extrusion_height,
-				rotate=rotate,
-				eastwest=eastwest,middle=middle,ccw=ccw);
-	}else{
-		if((middle!=undef) && (middle!=default_circle_middle))
-		{
-			//TODO: Which others?
-			//TODO: Which side things aren't supported on the circle
-			echo (str("text_on_cylinder:","WARNING " , "middle NOT supported for the SIDE of a cylinder."));
-		}
-		//Work on the side
-		locn_offset_vec =  (cylinder_center==true) ? [0,0,0] : [0,0,h/2]; 
-		rotate(-rtl_sign * rotation_for_center_text_string_and_rotate(t, size, spacing,r,rotate,center), [0,0,1])
-		translate(locn_vec+locn_offset_vec)
-		__internal_text_on_cylinder_side(t,locn_vec,r=r,h=h,r1=r1,r2=r2,
-			cylinder_center=cylinder_center,
-			center=center,
-			font=font,size=size,
-			spacing=spacing,direction=direction,language=language,script=script,halign=halign,valign=valign,
-			extrusion_height=extrusion_height,
-			rotate=rotate,face=face,updown=updown,
-			eastwest=eastwest);
-	}
+    rtl_sign = (direction=="rtl") ? -1 : 1;
+    if ((face=="top")||(face=="bottom") ){
+        //Work on a circle
+        locn_offset_vec = (face=="top" ) ? [0,0,cylinder_center_adjusted_top(h,cylinder_center)] : [0,0,cylinder_center_adjusted_bottom(h,cylinder_center)] ;
+        rotation_angle = (face=="top" ) ? 0 : 180 ;
+        int_radius =  (r==undef) ? ((face=="top" ) ? r2 : r1 ) : r;  //Use the top/bottom radius for slanty-cylinders
+        rotate(rotation_angle,[1,0,0])
+        text_on_circle(t,locn_vec+locn_offset_vec,r=int_radius-size,
+                font=font,size=size,
+                spacing=spacing,direction=direction,language=language,script=script,halign=halign,valign=valign,
+                extrusion_height=extrusion_height,
+                rotate=rotate,
+                eastwest=eastwest,middle=middle,ccw=ccw);
+    }else{
+        if((middle!=undef) && (middle!=default_circle_middle))
+        {
+            //TODO: Which others?
+            //TODO: Which side things aren't supported on the circle
+            echo (str("text_on_cylinder:","WARNING " , "middle NOT supported for the SIDE of a cylinder."));
+        }
+        //Work on the side
+        locn_offset_vec =  (cylinder_center==true) ? [0,0,0] : [0,0,h/2]; 
+        rotate(-rtl_sign * rotation_for_center_text_string_and_rotate(t, size, spacing,r,rotate,center), [0,0,1])
+        translate(locn_vec+locn_offset_vec)
+        __internal_text_on_cylinder_side(t,locn_vec,r=r,h=h,r1=r1,r2=r2,
+            cylinder_center=cylinder_center,
+            center=center,
+            font=font,size=size,
+            spacing=spacing,direction=direction,language=language,script=script,halign=halign,valign=valign,
+            extrusion_height=extrusion_height,
+            rotate=rotate,face=face,updown=updown,
+            eastwest=eastwest);
+    }
 }
 
 //circle(r)
@@ -223,30 +223,30 @@ module text_on_circle(t=default_t,
         echo (str("text_on_circle:","WARNING " , "halign and valign are NOT supported."));
     }
 
-	ccw_sign = (ccw==true) ? 1 : -1;
-	rtl_sign = (direction=="rtl") ? -1 : 1;
+    ccw_sign = (ccw==true) ? 1 : -1;
+    rtl_sign = (direction=="rtl") ? -1 : 1;
     ttb_btt_inaction = (direction=="ttb" || direction=="btt") ? 0 : 1;
-	rotate_z_outer =  -rotate + ccw_sign*eastwest;
-	rotate_z_inner = -rtl_sign * ccw_sign * ttb_btt_inaction * rotation_for_center_text_string( t, size, spacing, r-middle, rotate, center);
-	rotate( rotate_z_outer, [0,0,1] )
-	rotate( rotate_z_inner, [0,0,1] )
-	translate(locn_vec)
-	for (l=[0:len(t)-1]){
-		//TTB/BTT means no per letter rotation
-		rotate_z_inner2 = -ccw_sign * 90 + ttb_btt_inaction*rtl_sign*ccw_sign*l*rotation_for_character(size, spacing, r-middle, rotate=0);   //Bottom out=-270+r
-		//TTB means we go toward center, BTT means away
-		vert_x_offset = (direction=="ttb" || direction=="btt") ?  (l * size * ((direction=="btt") ? -1 : 1)) :  0;
-		rotate( rotate_z_inner2, [0,0,1] )
-		translate([r - middle - vert_x_offset,0,0])
-		rotate(-ccw_sign*270,[0,0,1])  // flip text (botom out = -270)
-		text_extrude(t[l],center=true,
-			font=font,size=size,
-			rotate=undef,
-			spacing=spacing,
-			direction=undef, //We don't pass direction ( misaligns inside text() ). TODO: Investigate why
-			language=language,script=script,halign=halign,valign=valign,
-			extrusion_height=extrusion_height );
-	}
+    rotate_z_outer =  -rotate + ccw_sign*eastwest;
+    rotate_z_inner = -rtl_sign * ccw_sign * ttb_btt_inaction * rotation_for_center_text_string( t, size, spacing, r-middle, rotate, center);
+    rotate( rotate_z_outer, [0,0,1] )
+    rotate( rotate_z_inner, [0,0,1] )
+    translate(locn_vec)
+    for (l=[0:len(t)-1]){
+        //TTB/BTT means no per letter rotation
+        rotate_z_inner2 = -ccw_sign * 90 + ttb_btt_inaction*rtl_sign*ccw_sign*l*rotation_for_character(size, spacing, r-middle, rotate=0);   //Bottom out=-270+r
+        //TTB means we go toward center, BTT means away
+        vert_x_offset = (direction=="ttb" || direction=="btt") ?  (l * size * ((direction=="btt") ? -1 : 1)) :  0;
+        rotate( rotate_z_inner2, [0,0,1] )
+        translate([r - middle - vert_x_offset,0,0])
+        rotate(-ccw_sign*270,[0,0,1])  // flip text (botom out = -270)
+        text_extrude(t[l],center=true,
+            font=font,size=size,
+            rotate=undef,
+            spacing=spacing,
+            direction=undef, //We don't pass direction ( misaligns inside text() ). TODO: Investigate why
+            language=language,script=script,halign=halign,valign=valign,
+            extrusion_height=extrusion_height );
+    }
 }
 
 //Only expected to be called from another function. No defaults as expected to be done in parent.
@@ -291,7 +291,7 @@ module __internal_text_on_cylinder_side(t=default_t,
 
     function calc_radius_at_height_offset(r1,r2,h_total,h_offset) = ( r1 + ((r2-r1) * (h_total-h_offset)/h_total) );
     
-  	//Has to factor in up/downedness
+      //Has to factor in up/downedness
     //Starts at middle height then height displacement is reduced under rotation and by the slope of the uneven radii
     function calc_height_offset_at_length(r1,r2,h,length,rotate, updown) = ( h/2 - updown + length * rotate/90 * cos( atan( (r2-r1)/h ) )  );
 
@@ -315,11 +315,11 @@ module __internal_text_on_cylinder_side(t=default_t,
     r2  = (r2!=undef) ? r2 : r;
     //NOTE: r is not used after here. We operate on generalised slanty cone (r1 and r2)
     
-  	//TODO: Look at changing this to extrusion_height_center
-	//and renaming the other as text_center
-	rr1 = (center) ? r1-extrusion_height/2 : r1;
-	rr2 = (center) ? r2-extrusion_height/2 : r2;
-	
+      //TODO: Look at changing this to extrusion_height_center
+    //and renaming the other as text_center
+    rr1 = (center) ? r1-extrusion_height/2 : r1;
+    rr2 = (center) ? r2-extrusion_height/2 : r2;
+    
     ccenter  = (r!=undef) ? center : false; //We don't do (text) centering for the slanty cones/helical paths (yet? ever?). Needs to do quite a few offset calcs.
     ddirection   = ((r==undef) && ((direction=="ttb")||(direction=="btt"))) ? "ltr" : direction; //We don't do ttb or btt directions on slanty
     rtl_sign = (ddirection=="rtl") ? -1 : 1;
@@ -329,43 +329,43 @@ module __internal_text_on_cylinder_side(t=default_t,
         rotate(eastwest,[0,0,1])
         for (l=[0:len(t)-1]){
             //TODO: TTB and BTT need to have a different concept of path/length than this for RTL/LTR
-   	        //width_of_... is half a char too long -- add 0.5 (counting from zero)
+               //width_of_... is half a char too long -- add 0.5 (counting from zero)
             length_to_center_of_char = width_of_text_string_num_length(l+0.5,size,spacing);
             radius_here = calc_radius_at_length(rr1,rr2,h, length_to_center_of_char, rotate, updown);
             //Rotating into position and tangentially to surface -- Don't rotate per character for ttb/btt
             //-90 is to get centering at origin
-		    rotate_z_inner  = -90 + rtl_sign * rotation_for_character(size, spacing, ( radius_here ), rotate) * ((ddirection=="ttb" || ddirection=="btt") ?  0 : l);
-	        rotate(rotate_z_inner,[0,0,1])
-			{
-	        //Positioning - based on (somewhat innacurate) string length
-		    //Offset per character to go up/down the side in ttb/btt -- TTB down, BTT up
-		    vert_z_char_offset = (ddirection=="ttb" || ddirection=="btt") ?  (l * size * ((ddirection=="ttb") ? -1 : 1 )) :  0 ;
-		    //Only if RTL/LTR and if center -- center the text (starts off in a more visually appealing location)
-		    vert_z_half_text_offset_tmp = (len(t)-1)/2 * (rotate/90*wid);
-		    vert_z_half_text_offset =  ((ddirection=="ttb" || ddirection=="btt") || (ccenter==false)) ? 0 : vert_z_half_text_offset_tmp;
+            rotate_z_inner  = -90 + rtl_sign * rotation_for_character(size, spacing, ( radius_here ), rotate) * ((ddirection=="ttb" || ddirection=="btt") ?  0 : l);
+            rotate(rotate_z_inner,[0,0,1])
+            {
+            //Positioning - based on (somewhat innacurate) string length
+            //Offset per character to go up/down the side in ttb/btt -- TTB down, BTT up
+            vert_z_char_offset = (ddirection=="ttb" || ddirection=="btt") ?  (l * size * ((ddirection=="ttb") ? -1 : 1 )) :  0 ;
+            //Only if RTL/LTR and if center -- center the text (starts off in a more visually appealing location)
+            vert_z_half_text_offset_tmp = (len(t)-1)/2 * (rotate/90*wid);
+            vert_z_half_text_offset =  ((ddirection=="ttb" || ddirection=="btt") || (ccenter==false)) ? 0 : vert_z_half_text_offset_tmp;
             translate([ radius_here , 0, vert_z_char_offset - l * ((rotate)/90*wid) + vert_z_half_text_offset])
 
-	        //Flip to tangent on the sloping side (without respecting rotation impact on the tangent -- rotate seems a little off. TODO: Investigate).
-	        rotate( atan( (rr2-rr1)/h ) , [0,1,0])
-	        //Flip onto face of "normal" cylinder
-	        rotate(90,[1,0,0])
-	        rotate(90,[0,1,0])
+            //Flip to tangent on the sloping side (without respecting rotation impact on the tangent -- rotate seems a little off. TODO: Investigate).
+            rotate( atan( (rr2-rr1)/h ) , [0,1,0])
+            //Flip onto face of "normal" cylinder
+            rotate(90,[1,0,0])
+            rotate(90,[0,1,0])
 
-    	    //Modify the offset of the baselined text to center
+            //Modify the offset of the baselined text to center
             translate([0,(ccenter) ? -size/2 : 0,0])
-	        
-	        text_extrude(t[l],
-	            center=false,
-	            rotate=rotate,
-	            font=font,size=size,
-	            spacing=spacing,
-	            direction=undef, //We don't pass direction ( misaligns inside text() ). TODO: Investigate why
-	            language=language,script=script,
-	            halign="center", //This can be relaxed eventually
+            
+            text_extrude(t[l],
+                center=false,
+                rotate=rotate,
+                font=font,size=size,
+                spacing=spacing,
+                direction=undef, //We don't pass direction ( misaligns inside text() ). TODO: Investigate why
+                language=language,script=script,
+                halign="center", //This can be relaxed eventually
                 valign="baseline", //Need this to keep all letters on the same line (could also support top -- otherw will make
-	            extrusion_height=extrusion_height
-	            );
-			}
+                extrusion_height=extrusion_height
+                );
+            }
         }
 }
 
@@ -403,61 +403,61 @@ module text_on_sphere(t=default_t,
     }
 
     //TODO: refactor this?
-	rtl_sign = (direction=="rtl") ? -1 : 1;
-	
-	//TODO: Look at changing this to extrusion_height_center
-	//and renaming the other as text_center
-	//If we are centered - we sink the radius by half the
-	//extrusion height to draw "just below the surface"
-	rr = (center) ? r-extrusion_height/2 : r ;
-	
-	rotate(eastwest,[0,0,1])
-	rotate(-northsouth,[1,0,0])
-	rotate(spin,[0,1,0])
-	{
-	//This tries to center the text (for RTL text).
+    rtl_sign = (direction=="rtl") ? -1 : 1;
+    
+    //TODO: Look at changing this to extrusion_height_center
+    //and renaming the other as text_center
+    //If we are centered - we sink the radius by half the
+    //extrusion height to draw "just below the surface"
+    rr = (center) ? r-extrusion_height/2 : r ;
+    
+    rotate(eastwest,[0,0,1])
+    rotate(-northsouth,[1,0,0])
+    rotate(spin,[0,1,0])
+    {
+    //This tries to center the text (for RTL text).
     ttb_btt_inaction = (direction=="ttb" || direction=="btt") ? 0 : 1;
-	rotate( -rtl_sign * ttb_btt_inaction * rotation_for_center_text_string(t, size, spacing, rr, rotate, center), [0,0,1])
-	{
-	    translate(locn_vec)
-		if ( rounded == false ){
-			__internal_text_on_sphere_helper(t=t,r=rr,
-	    		rotate=rotate,
-	    		center=center,
-	    		scale=scale,
-	            font=font,size=size,
+    rotate( -rtl_sign * ttb_btt_inaction * rotation_for_center_text_string(t, size, spacing, rr, rotate, center), [0,0,1])
+    {
+        translate(locn_vec)
+        if ( rounded == false ){
+            __internal_text_on_sphere_helper(t=t,r=rr,
+                rotate=rotate,
+                center=center,
+                scale=scale,
+                font=font,size=size,
                 spacing=spacing,
                 direction=direction,
                 language=language,script=script,halign=halign,valign=valign,
                 extrusion_height=extrusion_height
-			);
-		}else{
-		    //If rounding then clip the text inside an inner sphere and outer sphere
-			intersection()
-			{
-			__internal_text_on_sphere_helper(t=t,r=rr,
-        		rotate=rotate,
-        		center=center,
-        		scale=scale,
+            );
+        }else{
+            //If rounding then clip the text inside an inner sphere and outer sphere
+            intersection()
+            {
+            __internal_text_on_sphere_helper(t=t,r=rr,
+                rotate=rotate,
+                center=center,
+                scale=scale,
                 font=font,size=size,
                 spacing=spacing,
                 direction=direction,
                 language=language,script=script,halign=halign,valign=valign,
                 extrusion_height=extrusion_height*2 //Make it proud to clip it off.
-		    );
+            );
 
             //Shell - bounding inner and outer
-			difference()
-			{   //rounded outside
-				sphere(rr+extrusion_height);
-				// rounded inside for indented text
-			    sphere( rr  );
-			}
+            difference()
+            {   //rounded outside
+                sphere(rr+extrusion_height);
+                // rounded inside for indented text
+                sphere( rr  );
+            }
 
-		    }
-		}
-		}
-	}
+            }
+        }
+        }
+    }
 }
 
 //internal function -- don't call directly
@@ -485,36 +485,36 @@ module __internal_text_on_sphere_helper(t=default_t,
     ttb_btt_action   = (direction=="ttb" || direction=="btt") ? 1 : 0;
     
     for (l=[0:len(t)-1]){
-	    rotate_z_inner   = -90 + rtl_sign * ttb_btt_inaction * l * rotation_for_character(size, spacing, r, 0);
-	    
+        rotate_z_inner   = -90 + rtl_sign * ttb_btt_inaction * l * rotation_for_character(size, spacing, r, 0);
+        
         rotate( rotate_z_inner, [0,0,1] )
-		{
+        {
         translate_sign   = (direction=="ttb" || direction=="btt") ? ((direction=="btt") ? 1 : -1)  : 0 ;
         //translate_effect = (direction=="ttb" || direction=="btt") ? 1  :  0 ;
         //Translate letter to be located on the sphere in up/down direction when we are doing TTB and BTT
-	    translate(r * [cos(0 + ttb_btt_action * rotation_for_character(size, spacing, r, rotate) * l ), 0, translate_sign * ttb_btt_action * sin(0 +  rotation_for_character(size, spacing, r, rotate) * l ) ])
+        translate(r * [cos(0 + ttb_btt_action * rotation_for_character(size, spacing, r, rotate) * l ), 0, translate_sign * ttb_btt_action * sin(0 +  rotation_for_character(size, spacing, r, rotate) * l ) ])
         //Rotate letter to be tangential to the new part of the sphere when we are doing TTB and BTT
-	    rotate(-90 * translate_sign * (0 + ttb_btt_action * rotation_for_character(size, spacing, r, rotate) * l )/90 , [0,1,0])
+        rotate(-90 * translate_sign * (0 + ttb_btt_action * rotation_for_character(size, spacing, r, rotate) * l )/90 , [0,1,0])
         //Flip character into position to be flush against sphere
-	    rotate(90,[1,0,0])
-	    rotate(90,[0,1,0])
-	    
-	    //Modify the offset of the baselined text to center
-	    translate([0,(center) ? -size/2 : 0 ,0])
-	    
-	    text_extrude(t[l],
-	        center=false,
-	        rotate=rotate,
-	        scale=scale,
-	        font=font,
-	        size=size,
+        rotate(90,[1,0,0])
+        rotate(90,[0,1,0])
+        
+        //Modify the offset of the baselined text to center
+        translate([0,(center) ? -size/2 : 0 ,0])
+        
+        text_extrude(t[l],
+            center=false,
+            rotate=rotate,
+            scale=scale,
+            font=font,
+            size=size,
             spacing=spacing,
             direction=undef, //We don't pass direction ( misaligns inside text() ). TODO: Investigate why
             language=language,script=script,
             halign="center", //This can be relaxed eventually
             valign="baseline", //Need this to keep all letters on the same line (could also support top -- otherw will make wonky letters)
             extrusion_height=extrusion_height );
-		}
+        }
     }
 }
 
@@ -556,34 +556,34 @@ module text_on_cube(  t=default_t,
 
     int_cube_size = (str(cube_size)[0] != "[") ? [cube_size,cube_size,cube_size] : cube_size;
     rotate_x = ( (face=="front") || (face=="back") || (face=="left") || (face=="right") ) ? 90
-				: ((face=="bottom") ? 180 : 0) ; //Top is zero
-	rotate_y = ( (face=="back") || (face=="left") || (face=="right") ) ? (face=="back") ? 180 : ((face=="left") ? -90 : 90) //Right is 90
-				: 0 ; //Top, bottom, front are zero
-	locn_vec_offset =
-	        (face=="front") ?             [+rightleft,   -int_cube_size[1]/2, +updown]
-	        :((face=="back")?             [+rightleft,   +int_cube_size[1]/2, +updown]
-	            : ((face=="left")?         [-int_cube_size[0]/2, +rightleft,   +updown]
-	                : ((face=="right")?    [+int_cube_size[0]/2, +rightleft,   +updown]
-	                    : ((face=="top")?  [+rightleft,   +updown,             +int_cube_size[2]/2]
-	                        :              [+rightleft,   -updown,             -int_cube_size[2]/2]
-							)))); //bottom
-							
-		translate(locn_vec + locn_vec_offset)
-		rotate(rotate_x,[1,0,0])
-		rotate(rotate_y,[0,1,0])  // rotate around the y axis (z before rotation)
-		text_extrude(t,
-		    center=center,
-		    rotate=rotate,
-		    scale=scale,
-		    font=font,
-		    size=size,
-		    spacing=spacing,
-		    direction=direction, //Does this misalign inside text()? the individual character modules do.
-		    language=language,
-		    script=script,
-		    halign=halign,
-		    valign=valign,
-		    extrusion_height=extrusion_height );
+                : ((face=="bottom") ? 180 : 0) ; //Top is zero
+    rotate_y = ( (face=="back") || (face=="left") || (face=="right") ) ? (face=="back") ? 180 : ((face=="left") ? -90 : 90) //Right is 90
+                : 0 ; //Top, bottom, front are zero
+    locn_vec_offset =
+            (face=="front") ?             [+rightleft,   -int_cube_size[1]/2, +updown]
+            :((face=="back")?             [+rightleft,   +int_cube_size[1]/2, +updown]
+                : ((face=="left")?         [-int_cube_size[0]/2, +rightleft,   +updown]
+                    : ((face=="right")?    [+int_cube_size[0]/2, +rightleft,   +updown]
+                        : ((face=="top")?  [+rightleft,   +updown,             +int_cube_size[2]/2]
+                            :              [+rightleft,   -updown,             -int_cube_size[2]/2]
+                            )))); //bottom
+                            
+        translate(locn_vec + locn_vec_offset)
+        rotate(rotate_x,[1,0,0])
+        rotate(rotate_y,[0,1,0])  // rotate around the y axis (z before rotation)
+        text_extrude(t,
+            center=center,
+            rotate=rotate,
+            scale=scale,
+            font=font,
+            size=size,
+            spacing=spacing,
+            direction=direction, //Does this misalign inside text()? the individual character modules do.
+            language=language,
+            script=script,
+            halign=halign,
+            valign=valign,
+            extrusion_height=extrusion_height );
 }
 
 function default_if_undef(val, default_val) = (val!=undef) ? val : default_val ;
@@ -631,17 +631,17 @@ module text_extrude( t=default_t,
     halign            = (center) ? "center" : halign ;
     valign            = (center) ? "center" : valign ;
     extrusion_center  = (center) ? true : false ;
-	
-	scale( scale )
+    
+    scale( scale )
     rotate(rotate,[0,0,-1]) //TODO: Do we want to make this so that the entire vector can be set?
-	{
-	    linear_extrude(height=extrusion_height,convexity=10,center=extrusion_center)
+    {
+        linear_extrude(height=extrusion_height,convexity=10,center=extrusion_center)
         text(text=t, size = size,
             $fn = 40,
             font = font, direction = direction, spacing = spacing,
             halign = halign,
             valign = valign,
             language=language, script=script);
-	}
+    }
 }
 
