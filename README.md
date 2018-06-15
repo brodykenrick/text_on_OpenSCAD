@@ -20,17 +20,17 @@ Text can be unicode charaters and in any font (installed on your system), langua
 
 There are examples in the /examples directory to get you started. See below for some image renders.
 
-##Installation and Usage
+## Installation and Usage
 
-###Option 1 (Quick)
+### Option 1 (Quick)
 * Copy text_on.scad into the same directory as your .scad file.
 * Add "use <text_on.scad>" to your .scad file.
 
-###Option 2 (Nicer)
+### Option 2 (Nicer)
 * Copy (or link) the "text_on" directory into your OpenSCAD library directory (In OpenSCAD File/Library Folder will show you where it is).
 * Add "use <text_on/text_on.scad>" to your .scad file.
 
-##Module Arguments
+## Module Arguments
 
 See the top comments section in of text_on.scad for the module definition
 
@@ -53,18 +53,18 @@ And additional arguments:
 * center //center the text at the location it is being written (NOT that the object is centered)
 * locn_vector //Where the faux-object has been translated to.
 
-###Quick Example - Text On Sphere
+### Quick Example - Text On Sphere
 
     %sphere(r=15); //Partially visible "base" object
     text_on_sphere("Hello World",r=15);
 
-###Quick Example - Text On Cylinder
+### Quick Example - Text On Cylinder
 
     %cylinder(r1=rad1,r2=rad2,h=40); //Partially visible "base" object
     text_on_cylinder(t="Text",r1=rad1,r2=rad2,h=40, font="Liberation Mono", direction="ttb", size=5);
 
 
-##Example Images
+## Example Images
 
 The examples in /examples produce the following:
 
@@ -95,7 +95,7 @@ text_extrude.scad
 ![alt text](examples/text_extrude.scad.png "text_extrude.scad image")
 
 
-##Development
+## Development
 
 Please fork from at https://github.com/brodykenrick/text_on_OpenSCAD and fix any bugs or add any features and send a pull request.
 
