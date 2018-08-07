@@ -2,6 +2,8 @@
     This is a rework of version 3 of write.scad to use the new OpenSCAD internal text() primitive.
     All credit to Harlan Martin (harlan@sutlog.com) for his great effort on the original.
     Great thanks to t-paul (and the OpenSCAD dev team) on adding the new text() primitive.
+
+    https://github.com/brodykenrick/text_on_OpenSCAD
 */
 
 
@@ -44,6 +46,9 @@ Additional arguments for text_on_sphere():
 
 */
 
+const_location_outside = "outside";
+const_location_inside = "inside";
+
 // These control the default values for text_extrude(), text_on_sphere(), text_on_cube(), text_on_cylinder(), text_on_circle()
 // if the arguments are not included in the call to the module.
 
@@ -58,6 +63,7 @@ default_center = true; //Text-centering
 default_scale = [1,1,1];
 default_extrusion_height = 2; //mm letter extrusion height
 default_buffer_width = 0; //mm of buffer (thickening in all directions) to add to each letter
+default_location = const_location_outside; // (inside,outside)
 
 //Defaults for Cube
 default_cube_face = "front"; // default face (top,bottom,left,right,back,front)
@@ -110,6 +116,8 @@ function rotation_for_center_text_string(t, size, spacing, r, rotate, center) = 
 //Rotate according to rotate and if centred text also 1/2 width of text
 function rotation_for_center_text_string_and_rotate(t, size, spacing,r,rotate,center) = ((center) ? (width_of_text_string(t, size, spacing) / 2 / (internal_pi2 * r) * 360) : 1) * (1 - abs(rotate) / 90);
 
+function char_at(t, index, revert) = revert ? t[len(t)-1-index] : t[index];
+
 
 //---- Text on Object Functions ----
 //Text on the top or side of a cylinder.
@@ -135,6 +143,8 @@ module text_on_cylinder(t = default_t,
                         //All objects
                         extrusion_height = default_extrusion_height,
                         center = default_center,
+                        location = default_location,
+
                         //All objects -- arguments as for text()
                         font = undef,
                         size = default_size,
@@ -172,6 +182,7 @@ module text_on_cylinder(t = default_t,
                 script = script,
                 halign = halign,
                 valign = valign,
+                location = location,
                 extrusion_height = extrusion_height,
                 rotate = rotate,
                 eastwest = eastwest,
@@ -203,6 +214,7 @@ module text_on_cylinder(t = default_t,
                 script = script,
                 halign = halign,
                 valign = valign,
+                location = location,
                 extrusion_height = extrusion_height,
                 rotate = rotate,
                 face = face,
@@ -224,7 +236,8 @@ module text_on_circle(t = default_t,
                       extrusion_height = default_extrusion_height,
                       rotate = default_rotate,
                       center = default_center,
-                      
+                      location = default_location,
+                       
                       //All objects -- arguments as for text()
                       font = undef,
                       size = default_size,
@@ -259,7 +272,7 @@ module text_on_circle(t = default_t,
         rotate(rotate_z_inner2, [0, 0, 1])
         translate([r - middle - vert_x_offset, 0, 0])
         rotate(-ccw_sign * 270, [0, 0, 1]) // flip text (botom out = -270)
-        text_extrude(t[l],
+        text_extrude(char_at(t, l, revert=(location == const_location_inside && direction != "ttb" && direction != "btt")),
                 center = true,
                 font = font,
                 size = size,
@@ -270,6 +283,7 @@ module text_on_circle(t = default_t,
                 script = script,
                 halign = halign,
                 valign = valign,
+                location = location,
                 extrusion_height = extrusion_height,
                 buffer_width = buffer_width);
     }
@@ -292,6 +306,7 @@ module __internal_text_on_cylinder_side(t = default_t,
                       extrusion_height = default_extrusion_height,
                       center = undef,
                       rotate = default_rotate,
+                      location = default_location,
                       
                       //All objects -- arguments as for text()
                       font = undef,
@@ -377,7 +392,7 @@ module __internal_text_on_cylinder_side(t = default_t,
             //Modify the offset of the baselined text to center
             translate([0, (ccenter) ? -size / 2 : 0, 0])
         
-            text_extrude(t[l],
+            text_extrude(char_at(t, l, revert=(location == const_location_inside && direction != "ttb" && direction != "bbt")),
                     center = false,
                     rotate = rotate,
                     font = font,
@@ -388,6 +403,7 @@ module __internal_text_on_cylinder_side(t = default_t,
                     script = script,
                     halign = "center", //This can be relaxed eventually
                     valign = "baseline", //Need this to keep all letters on the same line (could also support top -- otherw will make
+                    location = location,
                     extrusion_height = extrusion_height,
                     buffer_width = buffer_width);
         }
@@ -410,6 +426,7 @@ module text_on_sphere(t = default_t,
                       extrusion_height = default_extrusion_height,
                       center = default_center, //center = false doesn't really even make sense to do (IMHO)
                       scale = default_scale,
+                      location = default_location,
                       //All objects -- arguments as for text()
                       font = undef,
                       size = default_size,
@@ -455,6 +472,7 @@ module text_on_sphere(t = default_t,
                         script = script,
                         halign = halign,
                         valign = valign,
+                        location = location,
                         extrusion_height = extrusion_height);
             } else {
                 //If rounding then clip the text inside an inner sphere and outer sphere
@@ -472,6 +490,7 @@ module text_on_sphere(t = default_t,
                             script = script,
                             halign = halign,
                             valign = valign,
+                            location = location,
                             extrusion_height = extrusion_height * 2); //Make it proud to clip it off.
                     //Shell - bounding inner and outer
                     difference() { //rounded outside
@@ -494,6 +513,7 @@ module __internal_text_on_sphere_helper(t = default_t,
                       extrusion_height = default_extrusion_height,
                       center = default_center,
                       scale = default_scale,
+                      location = default_location,
                       //All objects -- arguments as for text()
                       font = undef,
                       size = default_size,
@@ -523,7 +543,7 @@ module __internal_text_on_sphere_helper(t = default_t,
     
         //Modify the offset of the baselined text to center
         translate([0, (center) ? -size / 2 : 0 , 0])
-        text_extrude(t[l],
+        text_extrude(char_at(t, l, revert=(location == const_location_inside && direction != "ttb" && direction != "btt")),
                 center = false,
                 rotate = rotate,
                 scale = scale,
@@ -535,6 +555,7 @@ module __internal_text_on_sphere_helper(t = default_t,
                 script = script,
                 halign = "center", //This can be relaxed eventually
                 valign = "baseline", //Need this to keep all letters on the same line (could also support top -- otherw will make wonky letters)
+                location = location,
                 extrusion_height = extrusion_height,
                 buffer_width = buffer_width);
     }
@@ -558,6 +579,7 @@ module text_on_cube(  t = default_t,
                       center = undef,
                       rotate = default_rotate,
                       scale = default_scale,
+                      location = default_location,
                       //All objects -- arguments as for text()
                       font = undef,
                       size = default_size,
@@ -602,6 +624,7 @@ module text_on_cube(  t = default_t,
             script = script,
             halign = halign,
             valign = valign,
+            location = location,
             extrusion_height = extrusion_height,
             buffer_width = buffer_width );
 }
@@ -616,6 +639,7 @@ module text_extrude( t = default_t,
                      center = default_center, // Fudgy. YMMV. // TODO:center_extrusion, or extrusion offset??
                      rotate = default_rotate,
                      scale = default_scale, // For scaling by different on axes (for widening etc)
+                     location = default_location,
                      // Following are test() params (in addition to t=)
                      font = default_font,
                      size = default_size,
@@ -648,11 +672,17 @@ module text_extrude( t = default_t,
     halign = (center) ? "center" : halign ;
     valign = (center) ? "center" : valign ;
     extrusion_center = (center) ? true : false ;
-    
+
+    inside_outside_vec =
+            (location == const_location_outside)          ? [0, 0, 0]
+            : ((direction == "ttb" || direction == "btt") ? [0, 1, 0]
+              :                                             [1, 0, 0]);
+
     scale(scale)
     rotate(rotate, [0, 0, -1]) //TODO: Do we want to make this so that the entire vector can be set?
     linear_extrude(height = extrusion_height, convexity = 10, center = extrusion_center)
     offset(delta = buffer_width)
+    mirror(inside_outside_vec)
     text(text = t,
             size = size,
             $fn = 40,
@@ -664,4 +694,3 @@ module text_extrude( t = default_t,
             language = language,
             script = script);
 }
-

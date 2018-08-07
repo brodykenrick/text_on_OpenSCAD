@@ -1,4 +1,4 @@
-use <text_on/text_on.scad>
+use <../text_on.scad>
 
 
 //A cylinder with unequal top and bottom radii (a truncated cone)
@@ -9,6 +9,7 @@ translate([0,100,-25])
 %cylinder(r1=rad1, r2=rad2,h=40);
 
 text_on_cylinder("eastwest=-120",[0,0,0],r1=rad1,r2=rad2,h=40, eastwest=-120);
+text_on_cylinder("Right to Left",[0,0,0],r1=rad1,r2=rad2,h=40, updown=15, direction="rtl");
 
 text_on_cylinder("rotate=90",[0,0,0],r1=rad1,r2=rad2,h=40,rotate=90,updown=15);
 text_on_cylinder("rotate = 30, east = 90",[0,0,0],r1=rad1,r2=rad2,h=40,spacing=1.2,rotate=30,eastwest=90,updown=15);
@@ -16,6 +17,20 @@ text_on_cylinder("rotate = 30, east = 90",[0,0,0],r1=rad1,r2=rad2,h=40,spacing=1
 text_on_cylinder("face = top",[0,0,0],r1=rad1,r2=rad2,h=40,face="top");
 text_on_cylinder("face = bottom",[0,0,0],r1=rad1,r2=rad2,h=40,face="bottom");
 
+}
+
+translate([60,100,-25])
+{
+%cylinder(r1=rad1, r2=rad2,h=40);
+
+text_on_cylinder("eastwest=-120",[0,0,0],r1=rad1,r2=rad2,h=40, eastwest=-120, location="inside");
+text_on_cylinder("Right to Left",[0,0,0],r1=rad1,r2=rad2,h=40, updown=15, direction="rtl", location="inside");
+
+text_on_cylinder("rotate=90",[0,0,0],r1=rad1,r2=rad2,h=40,rotate=90,updown=15, location="inside");
+text_on_cylinder("rotate = 30, east = 90",[0,0,0],r1=rad1,r2=rad2,h=40,spacing=1.2,rotate=30,eastwest=90,updown=15, location="inside");
+
+text_on_cylinder("face = top",[0,0,0],r1=rad1,r2=rad2,h=40,face="top", location="inside");
+text_on_cylinder("B to Top",[0,0,0],r1=rad1,r2=rad2,h=40,face="top",middle=50,direction="btt", location="inside");
 }
 
 //The reverse slanty cylinder of the above
@@ -40,9 +55,11 @@ translate([0,0,-20])
 
 text_on_cylinder(t="rotate=90",locn_vec=[0,0,0],r=20,r1=undef,r2=undef,h=40,rotate=90);
 
-text_on_cylinder(t="TTB",locn_vec=[0,0,0],r=20,h=40,eastwest=-60,direction="ttb");
+text_on_cylinder(t="TtoB",locn_vec=[0,0,0],r=20,h=40,eastwest=-60,direction="ttb");
+text_on_cylinder(t="TtoB",locn_vec=[0,0,0],r=20,h=40,eastwest=-40,direction="ttb", location="inside");
 
-text_on_cylinder(t="BTT",locn_vec=[0,0,0],r=20,h=40,eastwest=-75,direction="btt");
+text_on_cylinder(t="BtoT",locn_vec=[0,0,0],r=20,h=40,eastwest=-75,direction="btt");
+text_on_cylinder(t="BtoT",locn_vec=[0,0,0],r=20,h=40,eastwest=-95,direction="btt", location="inside");
 
 text_on_cylinder(t="RTL",locn_vec=[0,0,0],r=20,h=40,eastwest=-105,direction="rtl",updown=10);
 

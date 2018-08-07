@@ -1,4 +1,4 @@
-use <text_on/text_on.scad>
+use <../text_on.scad>
 
 cube_locn=[10,20,20];
 
@@ -40,3 +40,17 @@ text_on_cube("left",cube_size=non_cubic_dimensions,face="left");
 }
 
 
+translate([-40, 20, 20]) {
+  %cube(30,center=true);	
+
+  text_on_cube(cube_size=30, size=5, center=true, location="inside"); 
+
+  text_on_cube("Howdy!!",cube_size=30,face="left", location="inside");
+
+  text_on_cube("Aloha!",cube_size=30,face="front",updown=-4,rightleft=8,rotate=-30, center=false, location="inside");
+
+  text_on_cube("TTB",cube_size=30,face="top",updown=-8, rightleft=-10, direction="ttb", size=3, location="inside");
+  text_on_cube("BTT",cube_size=30,face="top",updown=8, rightleft=-10, direction="btt", size=3, location="inside");
+
+  text_on_cube("Test RTL",cube_size=30,face="top",updown=-8, rightleft=3, direction="rtl", size=3, location="inside");
+}
