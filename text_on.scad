@@ -116,7 +116,7 @@ function rotation_for_center_text_string(t, size, spacing, r, rotate, center) = 
 //Rotate according to rotate and if centred text also 1/2 width of text
 function rotation_for_center_text_string_and_rotate(t, size, spacing,r,rotate,center) = ((center) ? (width_of_text_string(t, size, spacing) / 2 / (internal_pi2 * r) * 360) : 1) * (1 - abs(rotate) / 90);
 
-function char_at(t, index, revert) = revert ? t[len(t)-1-index] : t[index];
+function char_at(t, index, location, direction) = (location == const_location_inside && direction != "ttb" && direction != "btt") ? t[len(t)-1-index] : t[index];
 
 
 //---- Text on Object Functions ----
@@ -272,7 +272,7 @@ module text_on_circle(t = default_t,
         rotate(rotate_z_inner2, [0, 0, 1])
         translate([r - middle - vert_x_offset, 0, 0])
         rotate(-ccw_sign * 270, [0, 0, 1]) // flip text (botom out = -270)
-        text_extrude(char_at(t, l, revert=(location == const_location_inside && direction != "ttb" && direction != "btt")),
+        text_extrude(char_at(t, l, location, direction),
                 center = true,
                 font = font,
                 size = size,
@@ -392,7 +392,7 @@ module __internal_text_on_cylinder_side(t = default_t,
             //Modify the offset of the baselined text to center
             translate([0, (ccenter) ? -size / 2 : 0, 0])
         
-            text_extrude(char_at(t, l, revert=(location == const_location_inside && direction != "ttb" && direction != "bbt")),
+            text_extrude(char_at(t, l, location, direction),
                     center = false,
                     rotate = rotate,
                     font = font,
@@ -543,7 +543,7 @@ module __internal_text_on_sphere_helper(t = default_t,
     
         //Modify the offset of the baselined text to center
         translate([0, (center) ? -size / 2 : 0 , 0])
-        text_extrude(char_at(t, l, revert=(location == const_location_inside && direction != "ttb" && direction != "btt")),
+        text_extrude(char_at(t, l, location, direction),
                 center = false,
                 rotate = rotate,
                 scale = scale,
