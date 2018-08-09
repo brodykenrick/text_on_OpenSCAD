@@ -1,4 +1,4 @@
-use <text_on/text_on.scad>
+use <../text_on.scad>
 
 %sphere(15);
 text_on_sphere("Hello World",r=15,extrusion_height=4,spin=-45,northsouth=30,rotate=0,east=10,size=5,rounded=false);
@@ -14,13 +14,23 @@ translate([-35,0,20])
 %sphere(15);
 text_on_sphere(t="Text TTB",r=15,size=4,direction="ttb",spin=-45,spacing=1, rounded=false);
 
-
 color("green")
 text_on_sphere(t="Text BTT",r=15,size=4,direction="btt",eastwest=45,spacing=1, rounded=false);
 
 color("red")
 text_on_sphere(t="Test RTL",r=15,size=4,direction="rtl",northsouth=22.5, eastwest=-45,spacing=1, rounded=false);
 
+}
 
+translate([-35,-40,20])
+{
+%sphere(15);
+text_on_sphere(t="T to B",r=15,size=4,direction="ttb",spin=-45,spacing=1, rounded=false, location="inside");
+
+color("green")
+text_on_sphere(t="B to T",r=15,size=4,direction="btt",eastwest=45,spacing=1, rounded=false, location="inside");
+
+color("red")
+text_on_sphere(t="R to L",r=15,size=4,direction="rtl",northsouth=22.5, eastwest=-45,spacing=1, rounded=false, location="inside");
 
 }

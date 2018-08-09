@@ -52,6 +52,7 @@ And additional arguments:
 * rotate
 * center //center the text at the location it is being written (NOT that the object is centered)
 * locn_vector //Where the faux-object has been translated to.
+* location -- outside or inside
 
 ### Quick Example - Text On Sphere
 
