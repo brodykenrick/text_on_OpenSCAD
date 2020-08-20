@@ -151,7 +151,7 @@ module text_on_cylinder(t = default_t,
 //    echo (str("text_on_cylinder:","r1=" , r1));
 //    echo (str("text_on_cylinder:","r2=" , r2));
 
-    if((halign != undef) || (halign != undef)) {
+    if((halign != undef) || (valign != undef)) {
         echo(str("text_on_cylinder:","WARNING " , "halign and valign are NOT supported."));
     }
 
@@ -239,7 +239,7 @@ module text_on_circle(t = default_t,
 //    echo (str("text_on_circle:","rotate=" , rotate));
 //    echo (str("text_on_circle:","eastwest=" , eastwest));
 
-    if((halign != undef) || (halign != undef)) {
+    if((halign != undef) || (valign != undef)) {
         echo(str("text_on_circle:","WARNING " , "halign and valign are NOT supported."));
     }
 
@@ -310,7 +310,7 @@ module __internal_text_on_cylinder_side(t = default_t,
 //    echo (str("__internal_text_on_cylinder_side:","r2=" , r2));
 //    echo (str("__internal_text_on_cylinder_side:","direction=" , direction));
     
-    if((halign != undef) || (halign != undef)) {
+    if((halign != undef) || (valign != undef)) {
         echo(str("text_on_cylinder:","WARNING " , "halign and valign are NOT supported."));
     }
 
@@ -421,7 +421,7 @@ module text_on_sphere(t = default_t,
                       spacing = default_spacing) {
     //echo ("text_on_sphere:There are " ,len(t) ," letters in t" , t);
 
-    if((halign != undef) || (halign != undef)) {
+    if((halign != undef) || (valign != undef)) {
         echo(str("text_on_sphere:","WARNING " , "halign and valign are NOT supported (functionality used in centering)."));
     }
 
@@ -571,7 +571,7 @@ module text_on_cube(  t = default_t,
     //echo (str("text_on_cube:","There are " ,len(t) ," letters in t" , t));
     //echo (str("text_on_cube:","cube_size" , cube_size));
     
-    if((halign != undef) || (halign != undef)) {
+    if((halign != undef) || (valign != undef)) {
         echo(str("text_on_cube:","WARNING " , "halign and valign are NOT supported."));
     }
 
