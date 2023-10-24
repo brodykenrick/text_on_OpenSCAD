@@ -234,12 +234,14 @@ module text_on_circle(t = default_t,
                       language = undef,
                       script = undef,
                       spacing = default_spacing,
-                      buffer_width = default_buffer_width) {
+                      buffer_width = default_buffer_width,
+                      force_baseline = false // If true, forces each letter on the circle to vertically align to baseline. Process is quick and dirty, but works as a proof of concept.
+                      ) {
 //    echo (str("text_on_circle:","There are " ,len(t) ," letters in t" , t));
 //    echo (str("text_on_circle:","rotate=" , rotate));
 //    echo (str("text_on_circle:","eastwest=" , eastwest));
 
-    if((halign != undef) || (halign != undef)) {
+    if((halign != undef) || (valign != undef)) {
         echo(str("text_on_circle:","WARNING " , "halign and valign are NOT supported."));
     }
 
@@ -260,18 +262,20 @@ module text_on_circle(t = default_t,
         translate([r - middle - vert_x_offset, 0, 0])
         rotate(-ccw_sign * 270, [0, 0, 1]) // flip text (botom out = -270)
         text_extrude(t[l],
-                center = true,
-                font = font,
-                size = size,
-                rotate = undef,
-                spacing = spacing,
-                direction = undef, //We don't pass direction ( misaligns inside text() ). TODO: Investigate why
-                language = language,
-                script = script,
-                halign = halign,
-                valign = valign,
-                extrusion_height = extrusion_height,
-                buffer_width = buffer_width);
+            center = true,
+            font = font,
+            size = size,
+            rotate = undef,
+            spacing = spacing,
+            direction = undef, //We don't pass direction ( misaligns inside text() ). TODO: Investigate why
+            language = language,
+            script = script,
+            halign = halign,
+            valign = (force_baseline==true)?"baseline":valign,
+            extrusion_height = extrusion_height,
+            buffer_width = buffer_width,
+            force_baseline = force_baseline);
+        
     }
 }
 
@@ -603,7 +607,8 @@ module text_on_cube(  t = default_t,
             halign = halign,
             valign = valign,
             extrusion_height = extrusion_height,
-            buffer_width = buffer_width );
+            buffer_width = buffer_width,
+            force_baseline = false);
 }
 
 function default_if_undef(val, default_val) = (val != undef) ? val : default_val;
@@ -625,7 +630,8 @@ module text_extrude( t = default_t,
                      language = undef,
                      script = undef,
                      spacing = default_spacing,
-                     buffer_width = default_buffer_width) {
+                     buffer_width = default_buffer_width,
+                     force_baseline = false) {
     //echo (str("text_extrude:","There are " ,len(t) ," letters in text" , t));
     //echo (str("text_extrude:","extrusion_height=" , extrusion_height));
     
@@ -653,7 +659,9 @@ module text_extrude( t = default_t,
     rotate(rotate, [0, 0, -1]) //TODO: Do we want to make this so that the entire vector can be set?
     linear_extrude(height = extrusion_height, convexity = 10, center = extrusion_center)
     offset(delta = buffer_width)
-    text(text = t,
+    
+    if (force_baseline==false) {
+        text(text = t,
             size = size,
             $fn = 40,
             font = font,
@@ -663,5 +671,23 @@ module text_extrude( t = default_t,
             valign = valign,
             language = language,
             script = script);
+    } else {
+        difference() {
+            text(text = str("|  ",t,"  |"),
+                size = size,
+                $fn = 40,
+                font = font,
+                direction = direction,
+                spacing = spacing,
+                halign = halign,
+                valign = valign,
+                language = language,
+                script = script);
+            difference() {
+                square(size*8,center=true);
+                square(size*2,center=true);
+            }
+        }
+    }
 }
 
