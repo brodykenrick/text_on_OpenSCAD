@@ -275,6 +275,78 @@ module text_on_circle(t = default_t,
     }
 }
 
+module text_on_circle_2d(t = default_t,
+                      //Object-specific
+                      locn_vec = [0, 0, 0],
+                      r,
+                      eastwest = default_circle_eastwest,
+                      middle = default_circle_middle,
+                      ccw = default_circle_ccw,
+
+                      //All objects                      
+                      extrusion_height = default_extrusion_height,
+                      rotate = default_rotate,
+                      center = default_center,
+                      
+                      //All objects -- arguments as for text()
+                      font = undef,
+                      size = default_size,
+                      direction = undef,
+                      halign = undef,
+                      valign = undef,
+                      language = undef,
+                      script = undef,
+                      spacing = default_spacing,
+                      buffer_width = default_buffer_width,
+                      force_baseline = false
+                      ) {
+//    echo (str("text_on_circle:","There are " ,len(t) ," letters in t" , t));
+//    echo (str("text_on_circle:","rotate=" , rotate));
+//    echo (str("text_on_circle:","eastwest=" , eastwest));
+
+    if((halign != undef) || (valign != undef)) {
+        echo(str("text_on_circle:","WARNING " , "halign and valign are NOT supported."));
+    }
+
+    ccw_sign = (ccw == true) ? 1 : -1;
+    rtl_sign = (direction == "rtl") ? -1 : 1;
+    ttb_btt_inaction = (direction == "ttb" || direction == "btt") ? 0 : 1;
+    rotate_z_outer = -rotate + ccw_sign * eastwest;
+    rotate_z_inner = -rtl_sign * ccw_sign * ttb_btt_inaction * rotation_for_center_text_string(t, size, spacing, r-middle, rotate, center);
+    rotate(rotate_z_outer, [0, 0, 1] )
+    rotate(rotate_z_inner, [0, 0, 1] )
+    translate(locn_vec)
+    for(l = [0 : len(t) - 1]) {
+        //TTB/BTT means no per letter rotation
+        rotate_z_inner2 = -ccw_sign * 90 + ttb_btt_inaction * rtl_sign * ccw_sign * l * rotation_for_character(size, spacing, r - middle, rotate = 0);   //Bottom out=-270+r
+        //TTB means we go toward center, BTT means away
+        vert_x_offset = (direction == "ttb" || direction == "btt") ? (l * size * ((direction == "btt") ? -1 : 1)) : 0;
+        rotate(rotate_z_inner2, [0, 0, 1])
+        translate([r - middle - vert_x_offset, 0, 0])
+        rotate(-ccw_sign * 270, [0, 0, 1]) // flip text (botom out = -270)
+        
+    rotate(rotate, [0, 0, -1]) //TODO: Do we want to make this so that the entire vector can be set?
+    offset(delta = buffer_width)
+        
+        difference() {
+            text(text = str("|  ",t[l],"  |"),
+                size = size,
+                $fn = 40,
+                font = font,
+                direction = direction,
+                spacing = spacing,
+                halign = "center",
+                valign = "center",
+                language = language,
+                script = script);
+            difference() {
+                square(size*8,center=true);
+                square(size*3,center=true);
+            }
+        }
+    }
+}
+
 //Only expected to be called from another function. No defaults as expected to be done in parent.
 //NOTE: This is hacked. Requires more mathematics than I feel like to do properly today....
 //TODO: Refactor the two operations - side of normal and slanty
